@@ -1,0 +1,60 @@
+//
+// any line that contains // is treated as comment
+// this is a comment
+//
+// ------------------------------------------------
+//
+// format = x, y 
+// values can be integers or floats
+[Points] 
+0, 0
+3, 0
+6, 0
+
+// format = index1, index2, E, I, A
+// index is the position of the points starting from 0
+// for example for first point defined index is 0 and so on
+// E = Modulus of elasticity
+// I = Moment of Inertia
+// A = Area
+[Members] 
+0, 1, 2e5, 5e-3
+1, 2, 2e5, 5e-3
+
+// format = Px, Py, M, index
+// Px = Load in X direction
+// Py = Load in Y direction
+// M = Moment
+[NodalLoads] 
+0.0, 15.0, 40.0, 2
+
+// format = name, index
+// allowed name = roller, hinge, fixed
+[Supports] 
+fixed, 0
+hinge, 1
+
+// other options are [UDL], [UVL], [PointLoads]
+// 
+// for [UDL]
+// format = value, index1, index2
+//
+// for [UVL]
+// format = startvalue, endvalue, startindex, endindex
+// 
+// for [PointLoads]
+// format = Load, startindex, endindex, offsetfromstartindex
+// this load is the load whose node is not specified
+// hence it lies between startindex and endindex
+//
+// IMPORTANT
+// order of options are important
+// CorrectOrder
+// 1. [Points]
+// 2. [Members]
+// 3. [NodalLoads]
+// 4. [PointsLoads]
+// 5. [UDL]
+// 6. [UVL]
+// 7. [Supports]
+// Incorrect order may not function properly
