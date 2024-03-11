@@ -135,7 +135,7 @@ impl Point {
     }
 
     fn slope(&self, other: Point) -> f64 {
-        (self.y - other.y) / (self.x - other.x)
+        (other.y - self.y) / (other.x - self.x)
     }
 }
 
