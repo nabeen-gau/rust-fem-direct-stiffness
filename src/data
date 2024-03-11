@@ -48,8 +48,8 @@ fixed, 2
 // hence it lies between startindex and endindex
 //
 // IMPORTANT
-// order of options are important
-// CorrectOrder
+// order of options are not important
+// DefaultOrder
 // 1. [Points]
 // 2. [Members]
 // 3. [NodalLoads]
@@ -57,4 +57,4 @@ fixed, 2
 // 5. [UDL]
 // 6. [UVL]
 // 7. [Supports]
-// Incorrect order may not function properly
+// Incorrect order will function the same
