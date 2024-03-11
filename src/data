@@ -8,8 +8,8 @@
 // values can be integers or floats
 [Points] 
 0, 0
-3, 0
-6, 0
+0, 2.5
+0, 5
 
 // format = index1, index2, E, I, A
 // index is the position of the points starting from 0
@@ -26,13 +26,13 @@
 // Py = Load in Y direction
 // M = Moment
 [NodalLoads] 
-0.0, 15.0, 40.0, 2
+50.0, 0.0, 30.0, 1
 
 // format = name, index
 // allowed name = roller, hinge, fixed
 [Supports] 
 fixed, 0
-hinge, 1
+fixed, 2
 
 // other options are [UDL], [UVL], [PointLoads]
 // 

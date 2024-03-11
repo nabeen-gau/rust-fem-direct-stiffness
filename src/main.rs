@@ -855,6 +855,84 @@ fn main() {
     // parsing the data from file_path
     for line in contents.split("\n") {
         if line.contains("//") {continue;}
+
+        if line.contains("[Supports]") {
+            point_read_start_flag = false;
+            members_read_start_flag = false;
+            nodal_load_read_start_flag = false;
+            point_load_read_start_flag = false;
+            udl_read_start_flag = false;
+            uvl_read_start_flag = false;
+            support_read_start_flag = true;
+            continue;
+        }
+
+        if line.contains("[UVL]") {
+            point_read_start_flag = false;
+            members_read_start_flag = false;
+            nodal_load_read_start_flag = false;
+            point_load_read_start_flag = false;
+            udl_read_start_flag = false;
+            uvl_read_start_flag = true;
+            support_read_start_flag = false;
+            continue;
+        }
+
+        if line.contains("[UDL]") {
+            point_read_start_flag = false;
+            members_read_start_flag = false;
+            nodal_load_read_start_flag = false;
+            point_load_read_start_flag = false;
+            udl_read_start_flag = true;
+            uvl_read_start_flag = false;
+            support_read_start_flag = false;
+            continue;
+        }
+
+        if line.contains("[PointLoads]") {
+            point_read_start_flag = false;
+            members_read_start_flag = false;
+            nodal_load_read_start_flag = false;
+            point_load_read_start_flag = true;
+            udl_read_start_flag = false;
+            uvl_read_start_flag = false;
+            support_read_start_flag = false;
+            continue;
+        }
+
+        if line.contains("[NodalLoads]") {
+            point_read_start_flag = false;
+            members_read_start_flag = false;
+            nodal_load_read_start_flag = true;
+            point_load_read_start_flag = false;
+            udl_read_start_flag = false;
+            uvl_read_start_flag = false;
+            support_read_start_flag = false;
+            continue;
+        }
+
+        if line.contains("[Members]") {
+            point_read_start_flag = false;
+            members_read_start_flag = true;
+            nodal_load_read_start_flag = false;
+            point_load_read_start_flag = false;
+            udl_read_start_flag = false;
+            uvl_read_start_flag = false;
+            support_read_start_flag = false;
+            continue;
+        }
+
+        if line.contains("[Points]") {
+            point_read_start_flag = true;
+            members_read_start_flag = false;
+            nodal_load_read_start_flag = false;
+            point_load_read_start_flag = false;
+            udl_read_start_flag = false;
+            uvl_read_start_flag = false;
+            support_read_start_flag = false;
+            continue;
+        }
+
         if support_read_start_flag {
             let line = line.trim();
             if line == "" {
@@ -877,15 +955,6 @@ fn main() {
             supports.push(point);
         }
 
-        if line.contains("[Supports]") {
-            members_read_start_flag = false;
-            nodal_load_read_start_flag = false;
-            point_load_read_start_flag = false;
-            udl_read_start_flag = false;
-            uvl_read_start_flag = false;
-            support_read_start_flag = true;
-        }
-        
         if uvl_read_start_flag {
             let line = line.trim();
             if line == "" {
@@ -909,13 +978,7 @@ fn main() {
             }
             uvls.push(point);
         }
-        if line.contains("[UVL]") {
-            members_read_start_flag = false;
-            nodal_load_read_start_flag = false;
-            point_load_read_start_flag = false;
-            udl_read_start_flag = false;
-            uvl_read_start_flag = true;
-        }
+
         if udl_read_start_flag {
             let line = line.trim();
             if line == "" {
@@ -936,12 +999,7 @@ fn main() {
             }
             udls.push(point);
         }
-        if line.contains("[UDL]") {
-            members_read_start_flag = false;
-            nodal_load_read_start_flag = false;
-            point_load_read_start_flag = false;
-            udl_read_start_flag = true;
-        }
+
         if point_load_read_start_flag {
             let line = line.trim();
             if line == "" {
@@ -966,12 +1024,6 @@ fn main() {
             pointloads.push(point);
         }
 
-        if line.contains("[PointLoads]") {
-            members_read_start_flag = false;
-            nodal_load_read_start_flag = false;
-            point_load_read_start_flag = true;
-        }
-
         if nodal_load_read_start_flag {
             let line = line.trim();
             if line == "" {
@@ -994,11 +1046,6 @@ fn main() {
                 }
             }
             nodalloads.push(point);
-        }
-
-        if line.contains("[NodalLoads]") {
-            members_read_start_flag = false;
-            nodal_load_read_start_flag = true;
         }
 
         if members_read_start_flag {
@@ -1028,11 +1075,6 @@ fn main() {
             members.push(point);
         }
 
-        if line.contains("[Members]") {
-            point_read_start_flag = false;
-            members_read_start_flag = true;
-        }
-
         if point_read_start_flag {
             let line = line.trim();
             if line == "" {
@@ -1051,9 +1093,6 @@ fn main() {
             points.push(point);
         }
 
-        if line.contains("[Points]") {
-            point_read_start_flag = true;
-        }
     }
 
     let mut points_conv: Vec<Point> = vec![];
